@@ -16,18 +16,18 @@ test("Searching not found", async({ page }) => {
     const text = await searching.searchResult("//div[@class='search-noResult search-noResult--visible']//h2[1]");
     expect(text).toContain(`Não encontramos resultados para ${searchingValue}`);
 
-    await page.screenshot({ path: 'screenshot/not-found-screenshot.png', fullPage: true });
+    await page.screenshot({ path: 'screenshot/not-found-screenshot.png'});
 });
 
-test("Searching not found", async({ page }) => {
+test("Searching for JavaScript's courses", async({ page }) => {
     let searching = new SearchPageClass(page);
-    const searchingValue = 'pipinoglacic';
+    const searchingValue = 'JavaScript';
 
     await searching.typeSearchText("input[name='query']", searchingValue);
     await searching.pressEnter();
 
-    const text = await searching.searchResult("//div[@class='search-noResult search-noResult--visible']//h2[1]");
-    expect(text).toContain(`Não encontramos resultados para ${searchingValue}`);
+    const text = await searching.searchResult("(//div[@class='busca-resultado-container']//h4)");    
+    expect(text).toContain(`Curso ${searchingValue}:`);
 
-    await page.screenshot({ path: 'screenshot/not-found-screenshot.png', fullPage: true });
+    await page.screenshot({ path: 'screenshot/javascript-searching-screenshot.png'});
 });
