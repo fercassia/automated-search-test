@@ -1,6 +1,5 @@
-import { test, expect, chromium } from '@playwright/test';
-import { SearchPageClass } from '../pages/search-page.page'
-
+const { test, expect, chromium } = require('@playwright/test');
+const { SearchPageClass } = require ('../pages/search-page.page');
 
 test.beforeEach(async ({ page }) => {
     await page.goto('https://www.alura.com.br/'); 
@@ -8,12 +7,12 @@ test.beforeEach(async ({ page }) => {
 
 test("Searching not found", async({ page }) => {
     let searching = new SearchPageClass(page);
-    const searchingValue = 'pipinoglacic';
+    const searchingValue = 'playwright';
 
-    await searching.typeSearchText("input[name='query']", searchingValue);
+    await searching.typeSearchText("//input[@type='search']", searchingValue);
     await searching.pressEnter();
 
-    const text = await searching.searchResult("//div[@class='search-noResult search-noResult--visible']//h2[1]");
+    const text = await searching.searchResult("//div[@class='search-noResult search-noResult--visible']//h2");
     expect(text).toContain(`Não encontramos resultados para ${searchingValue}`);
 
     await page.screenshot({ path: 'screenshot/not-found-screenshot.png'});
@@ -23,7 +22,7 @@ test("Searching for JavaScript's courses", async({ page }) => {
     let searching = new SearchPageClass(page);
     const searchingValue = 'JavaScript';
 
-    await searching.typeSearchText("input[name='query']", searchingValue);
+    await searching.typeSearchText("//input[@type='search']", searchingValue);
     await searching.pressEnter();
 
     const text = await searching.searchResult("(//div[@class='busca-resultado-container']//h4)");    

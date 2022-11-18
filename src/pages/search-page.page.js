@@ -1,13 +1,13 @@
-import type { Page } from '@playwright/test';
+const { Page } = require('@playwright/test');
 
 export class SearchPageClass{
-    readonly page: Page;
+    _page;
     
-    constructor(page:Page){
-        this.page = page;
+    constructor (page){
+        this._page = page;
     }
     
-    async typeSearchText(input: string, searchValue: string){
+    async typeSearchText(input, searchValue){
         await this.page.type(input, searchValue);
     }
 
@@ -15,7 +15,7 @@ export class SearchPageClass{
         await this.page.keyboard.press('Enter');
     }
 
-    async searchResult(locator:string){
+    async searchResult(locator){
         return this.page.innerText(locator);
     }
 }
