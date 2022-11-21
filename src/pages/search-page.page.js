@@ -8,14 +8,14 @@ export class SearchPageClass{
     }
     
     async typeSearchText(input, searchValue){
-        await this.page.type(input, searchValue);
+        await this._page.type(input, searchValue);
     }
 
     async pressEnter(){
-        await this.page.keyboard.press('Enter');
+        await this._page.keyboard.press('Enter');
     }
 
     async searchResult(locator){
-        return this.page.innerText(locator);
+        return this._page.innerText(locator);
     }
 }
